@@ -1,0 +1,58 @@
+<h2>Question</h2>
+<p>
+  <strong>Title: </strong>
+  <%= markdown @question.title %>
+</p>
+
+<p>
+  <strong>Description: </strong>
+  <%= markdown @question.description %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> <%= link_to 'Delete', question_path, method: :delete %>
+
+<h2>Submit an Answer</h2>
+
+<%= form_for [@question, @answer] do |f| %>
+
+  <% if @answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being submitted:</h2>
+
+      <ul>
+      <% @answer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :answer %><br>
+    <%= f.text_area :answer %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+<h2>Answers</h2>
+<table>
+  <tr>
+    <th>Answer</th>
+    <th>Submitted</th>
+  </tr>
+  <% @answers_chron.each do |answer| %>
+    <tr>
+      <td><%= markdown answer.answer %></td>
+      <td><%= answer.created_at.strftime("%H:%M")%> on <%= answer.created_at.strftime("%b. %d %Y")%></td>
+    </tr>
+  <% end %>
+</table>
+
+
+
+<%= link_to 'All Questions', controller: 'questions' %>
+<%= link_to 'Home', controller: 'welcome' %>

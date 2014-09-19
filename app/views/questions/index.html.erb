@@ -1,0 +1,19 @@
+<h1>All Questions</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Submitted</th>
+  </tr>
+
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= link_to question.title, question %></td>
+      <td><%= question.created_at.strftime("%H:%M")%> on <%= question.created_at.strftime("%b. %d %Y")%></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Submit a Question', new_question_path %>
+</br>
+<%= link_to 'Home', controller: 'welcome' %>
